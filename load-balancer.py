@@ -11,7 +11,7 @@ BACKENDS = ['http://power1:5000', 'http://power2:5000']
 
 @app.route('/')
 def sample():
-  response = requests.get('http://power1:5000/')
+  response = requests.get('http://service:5000/')
   return response.content, response.status_code
 
   # return f'This is the load balancer application.'

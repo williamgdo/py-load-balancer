@@ -1,0 +1,23 @@
+version: '3'
+name: sd # Changes the project's name:
+services:
+  load-balancer: 
+    # container_name: load-balancer # Gives a name for the container
+    build: 
+      context: .  # Sets dir for the Dockerfile as root of the project
+      dockerfile: docker/load-balancer.Dockerfile
+    ports:
+     - "7000:5000"  # Maps container's 5000 port for my pc's 7000
+    networks:
+      - sd-project
+  service: # This will be the container's network alias
+    build:
+      context: .
+      dockerfile: docker/service.Dockerfile
+    networks:
+      - sd-project
+    deploy:
+      replicas: 2
+networks:
+  # The presence of these objects is sufficient to define them
+  sd-project: {}

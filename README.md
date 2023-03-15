@@ -1,7 +1,7 @@
 # py-load-balancer
 A HTTP Load Balancer made in Python 
 
-# Pré-requisitos
+# Dependências
 
 Python 3, Docker e Docker Compose instalados. 
 
@@ -11,59 +11,51 @@ Primeiro esse link:
 https://github.com/dcomp-leris/slice-enablers/tree/master/docker
 
 Depois:
-sudo apt -y install docker-compose docker-compose-plugin
+sudo apt -y install docker-compose-plugin
 
+# Instruções
 
+## Python 
 
-# Instructions
-
-Criar e selecionar um ambiente virtual para o load balancer
+Para editar o serviço e o load balancer fora dos containers, é interessante usar um ambiente virtual para o python. Para criar e selecionar um ambiente virtual, use:
 
 ```bash
 python3 -m venv env
 source env/bin/activate
 ```
 
-Instalar flask para fazer os servidores
+Instalar Flask para fazer os servidores e requests para fazer chamadas entre as APIs facilmente
 
 ```bash
-pip install flask
+pip install flask requests
 ```
 
-Criar imagem e subir docker compose
+## Docker
+
+Comandos básicos:
+
+* Para criar a imagem e subir os containers a primeira vez, use `sudo docker compose up -d`
+* Para parar os containers, use `sudo docker compose stop`
+* Para parar e removê-los, use `sudo docker compose down`
+
+
+Caso deseje atualizar os apps após as imagens já tenham sido criadas, é necessessário buildar as imagens novamente e recriar os containers. Para isso, após as edições serem feitas, remova os containers e use o parâmetro --build no comando de `up` (para buildar a imagem e já subir) OU faça o build manualmente e depois suba os containers com as novas imagens. 
+
+Exemplo:
 ```bash
-sudo docker build -t server .
-sudo docker-compose up -d
+# após mudanças feitas em load-balancer.py ou service.py
+sudo docker compose stop
+sudo docker compose up --build -d
+# OU 
+sudo docker compose stop
+sudo docker compose build
+sudo docker compose up -d
 ```
 
-## Para cada processo
-
-Atualmente, é necessário buildar localmente as duas imagens. Uma forma manual de fazer, é entrar em cada pasta (/load-balancer e /service) e usar o comando docker build. Exemplo:
+Para testar a aplicação, use algum programa para fazer requisições diretamente ao load balancer:
 
 ```bash
-# na pasta /load-balancer
-sudo docker build -t load-balancer .
-# na pasta service
-sudo docker build -t power . 
-```
-
-Para executar as imagens é necessário que as duas estejam na mesma rede docker. Depois, é necessário redirecionar a porta padrão do container do load balancer. Por fim, é interessante dar um alias para os containers (parâmetro --name)
-para que seja possível identificá-los sem ser por IP. Assim, um container com parametro "--name teste", pode ser chamado via `curl teste:5000`
-
-```bash
-sudo docker network create project
-sudo docker run -p 7000:5000 --network projeto --name load-balancer load-balancer
-sudo docker run --network projeto --name power1 power
 curl localhost:7000
-```
-
-# Problemas
-
-Depois de rodar `sudo docker run...` acabei encontrando um erro de que o container não desativava mesmo após encerrar com CTRL+C. É necessário excluir o container com comando `sudo docker rm <id-do-container>`. Mensagem de erro:
-
-```
-docker: Error response from daemon: Conflict. The container name "/power1" is already in use by container "8e785923686be79a2e0f3cc07928c865963d198fc9cd08d2964a611349fa3d35". You have to remove (or rename) that container to be able to reuse that name.
-See 'docker run --help'.
 ```
 # Links interessantes
 
@@ -75,3 +67,9 @@ https://dev.to/codemaker2015/build-and-deploy-flask-rest-api-on-docker-25mf
 
 host-based vs path-based routing:
 https://testdriven.io/courses/http-load-balancer/routing/
+
+docker compose cheatsheet https://github.com/tldr-pages/tldr/blob/master/pages/common/docker-compose.md
+
+https://www.youtube.com/watch?v=CSb-sHNM2NY
+
+
