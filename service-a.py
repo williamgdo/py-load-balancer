@@ -5,7 +5,7 @@ import json
 
 # global variables
 SERVICE_NAME = "A"
-CONNECTION_STRING = "mongodb://localhost:27017/"
+CONNECTION_STRING = "mongodb://mongodb:27017/"
 
 
 # the service A should compute a^b
