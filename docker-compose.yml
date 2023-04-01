@@ -10,25 +10,34 @@ services:
     # persist data
     networks:
       - sd-project
+  load-balancer:
+    container_name: load-balancer # Gives a name for the container
+    build:
+      context: . # Sets dir for the Dockerfile as root of the project
+      dockerfile: docker/load-balancer.Dockerfile
+    ports:
+      - "7000:5000" # Maps container's 5000 port for my pc's 7000
 
-  service-a: # This will be the container's network alias
+    # host_port:container_port
+    # I'm currently making every call to localhost:7000
+    # to be redirected to container:5000 (default flask port)
+
+    networks:
+      - sd-project
+  service-a: # This will be the container's network alias if you not give a container_name below
+    container_name: service-a
     build:
       context: .
       dockerfile: docker/service-a.Dockerfile
-    ports:
-      - "7000:5000"
-      # host_port:container_port
-      # I'm currently making every call to localhost:7000
-      # to be redirected to container:5000 (default flask port)
+
     networks:
       - sd-project
 
   service-b:
+    container_name: service-b
     build:
       context: .
       dockerfile: docker/service-b.Dockerfile
-    ports:
-      - "7001:5000"
     networks:
       - sd-project
 networks:
