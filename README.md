@@ -1,6 +1,9 @@
 # py-load-balancer
 
 A HTTP Load Balancer made in Python
+Made by:
+William Giacometti
+José Santana
 
 # Dependências
 
