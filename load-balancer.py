@@ -35,6 +35,20 @@ def postPower():
         return jsonify(message="An exception occurred: " + str(e))
 
 
+# we can make the load-balancer request in loop by making the request over and over until completed
+# requestCompleted = False
+# while requestCompleted == False:
+#     try:
+#         res = requests.post(BACKENDS[CURRENT_BACKEND] + "/calculate", json=dictToSend)
+#         requestCompleted = True
+#     except requests.exceptions.RequestException as e:
+#         CURRENT_BACKEND = (CURRENT_BACKEND + 1) % 2
+#         time.sleep(5)
+
+# dictFromServer = res.json()
+# return dictFromServer
+
+
 @app.route("/power", methods=["GET"])
 def getPower():
     global CURRENT_BACKEND

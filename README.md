@@ -74,32 +74,3 @@ sudo docker run -d -p 27017:27017 --name mongo_example mongo
 # entrar no container
 sudo docker exec -it mongo_example bash
 ```
-
-# Links interessantes
-
-https://blog.devgenius.io/5-minutes-to-learn-python-and-create-your-own-load-balancer-step-by-step-tutorial-included-f3109b5f7961
-
-https://testdriven.io/courses/http-load-balancer/routing/
-
-https://dev.to/codemaker2015/build-and-deploy-flask-rest-api-on-docker-25mf
-
-host-based vs path-based routing:
-https://testdriven.io/courses/http-load-balancer/routing/
-
-docker compose cheatsheet https://github.com/tldr-pages/tldr/blob/master/pages/common/docker-compose.md
-
-https://www.youtube.com/watch?v=CSb-sHNM2NY
-
-# mongodb
-
-### mongodb docker
-
-https://www.linode.com/docs/guides/set-up-mongodb-on-docker/
-
-### mongodb python
-
-https://www.mongodb.com/languages/python
-
-### mongodb basics
-
-https://www.mongodb.com/basics/create-database
