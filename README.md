@@ -1,9 +1,6 @@
 # py-load-balancer
 
-A HTTP Load Balancer made in Python
-Made by:
-William Giacometti
-José Santana
+Um Load Balancer HTTP usando Python. Desenvolvido por William Oliveira e José Santana.
 
 # Dependências
 
@@ -11,10 +8,10 @@ Python 3, Docker e Docker Compose instalados.
 
 Instalacao do docker
 
-Primeiro esse link:
+Guia para instalação do Docker:
 https://github.com/dcomp-leris/slice-enablers/tree/master/docker
 
-Depois:
+Instalação do Docker Compose:
 sudo apt -y install docker-compose-plugin
 
 # Instruções
